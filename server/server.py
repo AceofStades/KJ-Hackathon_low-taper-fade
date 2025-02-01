@@ -23,7 +23,7 @@ def serve_dashboard():
 # Route to serve landing.html
 @app.route("/landing")
 def serve_landing():
-    send_notification("Welcome to the internet")  # ✅ Ensures it runs before return
+    send_notification("Welcome to the internet")
     return send_from_directory("../frontend", "landing.html")
 
 # Serve static files (CSS, JS)
@@ -42,7 +42,7 @@ def get_data():
 # Handle WebSocket connection
 @socketio.on("connect")
 def handle_connect():
-    print("Client connected!")  # ✅ Confirms WebSocket is working
+    print("Client connected!")
     emit("new_notification", {"message": "Connected to notification service!"})
 
 # Send notifications dynamically
@@ -58,10 +58,10 @@ def notification_loop():
         "Limited-time offer: Get 20% off on Premium subscription!",
     ]
     for msg in messages:
-        socketio.sleep(10)  # ✅ Uses SocketIO's sleep for async compatibility
+        socketio.sleep(10)
         send_notification(msg)
     send_notification("Sigma")
 
 if __name__ == "__main__":
-    socketio.start_background_task(notification_loop)  # ✅ Runs notification loop in background
-    socketio.run(app, debug=True, use_reloader=False)  # ✅ Prevents WebSocket disconnections
+    socketio.start_background_task(notification_loop)
+    socketio.run(app, debug=True, use_reloader=False)
