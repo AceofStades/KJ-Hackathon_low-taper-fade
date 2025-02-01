@@ -9,7 +9,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Load data from CSV
 def load_data():
-    file_path = "data.csv"
+    file_path = "../data.csv"
     if os.path.exists(file_path):
         df = pd.read_csv(file_path)
         return df.to_dict(orient="records")
@@ -58,8 +58,9 @@ def notification_loop():
         "Limited-time offer: Get 20% off on Premium subscription!",
     ]
     for msg in messages:
-        socketio.sleep(10)
+        socketio.sleep(3)
         send_notification(msg)
+    socketio.sleep(3)
     send_notification("Sigma")
 
 if __name__ == "__main__":
