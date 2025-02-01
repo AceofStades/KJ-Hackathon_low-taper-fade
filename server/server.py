@@ -15,11 +15,6 @@ def load_data():
         return df.to_dict(orient="records")
     return []
 
-# Send notifications dynamically
-def send_notification(message):
-    """Emit notification to all connected clients."""
-    socketio.emit("notification", {"message": message})
-
 # Route for the main dashboard
 @app.route("/")
 def serve_dashboard():
@@ -43,6 +38,11 @@ def serve_assets(filename):
 @app.route("/data")
 def get_data():
     return jsonify(load_data())
+
+# Send notifications dynamically
+def send_notification(message):
+    """Emit notification to all connected clients."""
+    socketio.emit("notification", {"message": message})
 
 # Simulate sending notifications every 10 seconds
 def notification_loop():
