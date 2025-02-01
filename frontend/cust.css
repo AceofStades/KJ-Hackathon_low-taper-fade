@@ -1,0 +1,126 @@
+:root {
+    --high-risk: #ff4d4d;
+    --medium-risk: #ffd700;
+    --low-risk: #4caf50;
+    --background: #f0f2f5;
+    --text: #333;
+    --panel-bg: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.dashboard {
+    display: flex;
+    height: 100vh;
+}
+
+.left-panel, .right-panel {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.left-panel {
+    flex: 1;
+    background-color: var(--panel-bg);
+    box-shadow: var(--shadow);
+}
+
+.right-panel {
+    flex: 2;
+    background-color: var(--panel-bg);
+    box-shadow: var(--shadow);
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+.risk-buckets {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.bucket {
+    flex: 1;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.bucket:hover {
+    transform: translateY(-5px);
+}
+
+.high-risk { background-color: var(--high-risk); }
+.medium-risk { background-color: var(--medium-risk); }
+.low-risk { background-color: var(--low-risk); }
+
+.customer-count {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.customer-list {
+    background-color: var(--panel-bg);
+    border-radius: 10px;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.customer-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.customer-item:hover {
+    background-color: #f5f5f5;
+}
+
+.metric {
+    margin-bottom: 20px;
+}
+
+.sentiment-score {
+    text-align: center;
+}
+
+#sentimentIndicator {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+    background: conic-gradient(var(--high-risk) 0deg, var(--medium-risk) 0deg, var(--low-risk) 0deg);
+}
+
+.probability-indicator {
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.probability-bar {
+    height: 100%;
+    background-color: var(--high-risk);
+    width: 0;
+    transition: width 0.5s ease;
+}
+
+.probability-text {
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
+}
