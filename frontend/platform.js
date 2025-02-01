@@ -1,104 +1,117 @@
-
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize Lucide icons
-  lucide.createIcons()
+	// Initialize Lucide icons
+	lucide.createIcons();
 
-  // Carousel functionality
-  const carousel = document.querySelector(".carousel")
-  const prevBtn = document.querySelector(".carousel-arrow.prev")
-  const nextBtn = document.querySelector(".carousel-arrow.next")
+	// Carousel functionality
+	const carousel = document.querySelector(".carousel");
+	const prevBtn = document.querySelector(".carousel-arrow.prev");
+	const nextBtn = document.querySelector(".carousel-arrow.next");
 
-  // Carousel navigation
-  prevBtn.addEventListener("click", () => {
-    carousel.scrollBy({ left: -220, behavior: "smooth" })
-  })
+	prevBtn.addEventListener("click", () => {
+		carousel.scrollBy({ left: -220, behavior: "smooth" });
+	});
 
-  nextBtn.addEventListener("click", () => {
-    carousel.scrollBy({ left: 220, behavior: "smooth" })
-  })
+	nextBtn.addEventListener("click", () => {
+		carousel.scrollBy({ left: 220, behavior: "smooth" });
+	});
 
-  // Auto-play functionality
-  let autoPlayInterval
+	// Auto-play functionality
+	let autoPlayInterval;
 
-  const startAutoPlay = () => {
-    autoPlayInterval = setInterval(() => {
-      carousel.scrollBy({ left: 220, behavior: "smooth" })
-    }, 5000) // Change slide every 5 seconds
-  }
+	const startAutoPlay = () => {
+		autoPlayInterval = setInterval(() => {
+			carousel.scrollBy({ left: 220, behavior: "smooth" });
+		}, 5000);
+	};
 
-  const stopAutoPlay = () => {
-    clearInterval(autoPlayInterval)
-  }
+	const stopAutoPlay = () => {
+		clearInterval(autoPlayInterval);
+	};
 
-  // Start auto-play
-  startAutoPlay()
+	startAutoPlay();
 
-  // Pause auto-play on hover
-  carousel.addEventListener("mouseenter", stopAutoPlay)
-  carousel.addEventListener("mouseleave", startAutoPlay)
+	carousel.addEventListener("mouseenter", stopAutoPlay);
+	carousel.addEventListener("mouseleave", startAutoPlay);
 
-  // Mobile touch gestures for carousel
-  let touchStartX = 0
-  let touchEndX = 0
+	// Mobile touch gestures for carousel
+	let touchStartX = 0;
+	let touchEndX = 0;
 
-  carousel.addEventListener("touchstart", (e) => {
-    touchStartX = e.changedTouches[0].screenX
-  })
+	carousel.addEventListener("touchstart", (e) => {
+		touchStartX = e.changedTouches[0].screenX;
+	});
 
-  carousel.addEventListener("touchend", (e) => {
-    touchEndX = e.changedTouches[0].screenX
-    handleSwipe()
-  })
+	carousel.addEventListener("touchend", (e) => {
+		touchEndX = e.changedTouches[0].screenX;
+		handleSwipe();
+	});
 
-  function handleSwipe() {
-    const swipeThreshold = 50
-    if (touchStartX - touchEndX > swipeThreshold) {
-      // Swipe left
-      carousel.scrollBy({ left: 220, behavior: "smooth" })
-    } else if (touchEndX - touchStartX > swipeThreshold) {
-      // Swipe right
-      carousel.scrollBy({ left: -220, behavior: "smooth" })
-    }
-  }
+	function handleSwipe() {
+		const swipeThreshold = 50;
+		if (touchStartX - touchEndX > swipeThreshold) {
+			carousel.scrollBy({ left: 220, behavior: "smooth" });
+		} else if (touchEndX - touchStartX > swipeThreshold) {
+			carousel.scrollBy({ left: -220, behavior: "smooth" });
+		}
+	}
 
-  // Smooth scroll effect for navigation links
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault()
-      document.querySelector(this.getAttribute("href")).scrollIntoView({
-        behavior: "smooth",
-      })
-    })
-  })
+	// Smooth scroll effect for navigation links
+	document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+		anchor.addEventListener("click", function (e) {
+			e.preventDefault();
+			document.querySelector(this.getAttribute("href")).scrollIntoView({
+				behavior: "smooth",
+			});
+		});
+	});
 
-  // Dynamic header background on scroll
-  window.addEventListener("scroll", () => {
-    const header = document.querySelector("header")
-    if (window.scrollY > 50) {
-      header.style.background = "rgba(0, 0, 0, 0.8)"
-    } else {
-      header.style.background = "linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%)"
-    }
-  })
-})
+	// Dynamic header background on scroll
+	window.addEventListener("scroll", () => {
+		const header = document.querySelector("header");
+		header.style.background =
+			window.scrollY > 50
+				? "rgba(0, 0, 0, 0.8)"
+				: "linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%)";
+	});
 
-document.addEventListener("DOMContentLoaded", function () {
-    const notificationIcon = document.querySelector(".notification-icon");
-    const notificationPanel = document.getElementById("notification-panel");
-    const blurOverlay = document.getElementById("blur-overlay");
+	// Notification functionality with WebSocket
+	const notificationIcon = document.querySelector(".notification-icon");
+	const notificationPanel = document.getElementById("notification-panel");
+	const blurOverlay = document.getElementById("blur-overlay");
+	const notificationList = document.querySelector(".notification-list");
+	const notificationBadge = document.querySelector(".notification-badge");
 
-    // Toggle Notification Panel
-    notificationIcon.addEventListener("click", function () {
-        notificationPanel.classList.toggle("active");
-        blurOverlay.classList.toggle("active");
-    });
+	notificationIcon.addEventListener("click", () => {
+		notificationPanel.classList.toggle("active");
+		blurOverlay.classList.toggle("active");
+		notificationBadge.textContent = "";
+		notificationBadge.style.display = "none";
+	});
 
-    // Close the panel when clicking outside
-    blurOverlay.addEventListener("click", function () {
-        notificationPanel.classList.remove("active");
-        blurOverlay.classList.remove("active");
-    });
+	blurOverlay.addEventListener("click", () => {
+		notificationPanel.classList.remove("active");
+		blurOverlay.classList.remove("active");
+	});
+
+	// Connect to WebSocket server
+	const socket = io("http://localhost:5000");
+
+	socket.on("connect", () => {
+		console.log("Connected to notification server");
+	});
+
+	socket.on("new_notification", (data) => {
+		console.log("New notification received:", data.message);
+
+		// Create a new notification item
+		const newNotification = document.createElement("li");
+		newNotification.textContent = data.message;
+		notificationList.prepend(newNotification);
+
+		// Update notification count
+		let count = parseInt(notificationBadge.textContent) || 0;
+		count++;
+		notificationBadge.textContent = count;
+		notificationBadge.style.display = "block";
+	});
 });
-
-
