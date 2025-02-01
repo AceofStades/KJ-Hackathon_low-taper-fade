@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix - Your Ultimate Entertainment Hub</title>
+    <link rel="stylesheet" href="ott.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">StreamFlix</div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">TV Shows</a></li>
+                <li><a href="#">My List</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search...">
+                    <i data-lucide="search" class="search-icon"></i>
+                </div>
+                <div class="notification-icon">
+                    <i data-lucide="bell"></i>
+                    <span class="notification-badge">3</span> <!-- Badge for new notifications -->
+                </div>
+                <div class="user-profile">
+                    <img src="assets/profile2.jpg" alt="User Profile" class="profile-icon">
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Notification Panel -->
+<div id="notification-panel" class="notification-panel">
+    <h2>Notifications</h2>
+    <ul class="notification-list">
+        <li>New movie added: Inception</li>
+        <li>Your show "Dark" has a new season</li>
+        <li>Special discount on premium subscription!</li>
+    </ul>
+</div>
+
+<!-- Blur Overlay -->
+<div id="blur-overlay" class="blur-overlay"></div>
+
+
+    <main>
+        <section class="hero">
+            <video class="video-background" autoplay muted loop>
+                <source src="assets/incep_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-content">
+
+                <h1 class="movie-title">Inception</h1>
+                <div class="movie-info">
+                    <span class="genre">Sci-Fi, Action</span>
+                    <span class="duration">2h 28min</span>
+                </div>
+                <p class="movie-description">
+                    A thief who enters the dreams of others to steal secrets from their subconscious.
+                </p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary">
+                        <i data-lucide="play" class="btn-icon"></i> Watch Now
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i data-lucide="plus" class="btn-icon"></i> Add to List
+                    </button>
+                    <button class="btn btn-tertiary">
+                        <i data-lucide="info" class="btn-icon"></i> Details
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="recommendations">
+            <h2>Recommended for You</h2>
+            <div class="carousel-container">
+                <button class="carousel-arrow prev">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <div class="carousel">
+                    <div class="movie-card">
+                        <img src="assets/matrix.jpg" alt="The Matrix">
+                        <div class="movie-card-info">
+                            <div class="movie-card-title">The Matrix</div>
+                            <div class="movie-card-rating">★ 8.7</div>
+                        </div>
+                    </div>
+                    <div class="movie-card">
+                        <img src="assets/inception_card.jpg" alt="Inception">
+                        <div class="movie-card-info">
+                            <div class="movie-card-title">Inception</div>
+                            <div class="movie-card-rating">★ 8.8</div>
+                        </div>
+                    </div>
+                    <div class="movie-card">
+                        <img src="assets/inter.jpg" alt="Interstellar">
+                        <div class="movie-card-info">
+                            <div class="movie-card-title">Interstellar</div>
+                            <div class="movie-card-rating">★ 8.6</div>
+                        </div>
+                    </div>
+                    <div class="movie-card">
+                        <img src="assets/dark.jpg" alt="The Dark Knight">
+                        <div class="movie-card-info">
+                            <div class="movie-card-title">The Dark Knight</div>
+                            <div class="movie-card-rating">★ 9.0</div>
+                        </div>
+                    </div>
+                    <div class="movie-card">
+                        <img src="assets/pulp.jpg" alt="Pulp Fiction">
+                        <div class="movie-card-info">
+                            <div class="movie-card-title">Pulp Fiction</div>
+                            <div class="movie-card-rating">★ 8.9</div>
+                        </div>
+                    </div>
+                    <div class="movie-card">
+                        <img src="assets/forrest.jpg" alt="Forrest Gump">
+                        <div class="movie-card-info">
+                            <div class="movie-card-title">Forrest Gump</div>
+                            <div class="movie-card-rating">★ 8.8</div>
+                        </div>
+                    </div>
+                    <div class="movie-card">
+                        <img src="assets/shaw2.jpg" alt="The Shawshank Redemption">
+                        <div class="movie-card-info">
+                            <div class="movie-card-title">The Shawshank Redemption</div>
+                            <div class="movie-card-rating">★ 9.3</div>
+                        </div>
+                    </div>
+                    <div class="movie-card">
+                        <img src="assets/godfather.jpg" alt="The Godfather">
+                        <div class="movie-card-info">
+                            <div class="movie-card-title">The Godfather</div>
+                            <div class="movie-card-rating">★ 9.2</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-arrow next">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script src="platform.js"></script>
+</body>
+
+</html>
