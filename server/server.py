@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, send_from_directory
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, emit
 import pandas as pd
 import os
 import time
@@ -23,8 +23,8 @@ def serve_dashboard():
 # Route to serve landing.html
 @app.route("/landing")
 def serve_landing():
+    send_notification("Welcome to the internet")  # ✅ Ensures it runs before return
     return send_from_directory("../frontend", "landing.html")
-    send_notification("Welcome to the internet")
 
 # Serve static files (CSS, JS)
 @app.route("/<path:filename>")
@@ -39,12 +39,18 @@ def serve_assets(filename):
 def get_data():
     return jsonify(load_data())
 
+# Handle WebSocket connection
+@socketio.on("connect")
+def handle_connect():
+    print("Client connected!")  # ✅ Confirms WebSocket is working
+    emit("notification", {"message": "Connected to notification service!"})
+
 # Send notifications dynamically
 def send_notification(message):
     """Emit notification to all connected clients."""
-    socketio.emit("notification", {"message": message})
+    socketio.emit("notification", {"message": message}, to="broadcast")
 
-# Simulate sending notifications every 10 seconds
+# Background notification loop
 def notification_loop():
     messages = [
         "New episode of 'Stranger Things' is out!",
@@ -53,9 +59,9 @@ def notification_loop():
     ]
     while True:
         for msg in messages:
-            socketio.sleep(10)  # Wait 10 seconds before sending the next notification
+            socketio.sleep(10)  # ✅ Uses SocketIO's sleep for async compatibility
             send_notification(msg)
 
 if __name__ == "__main__":
-    socketio.start_background_task(notification_loop)  # Run notification loop in background
-    socketio.run(app, debug=True)
+    socketio.start_background_task(notification_loop)  # ✅ Runs notification loop in background
+    socketio.run(app, debug=True, use_reloader=False)  # ✅ Prevents WebSocket disconnections

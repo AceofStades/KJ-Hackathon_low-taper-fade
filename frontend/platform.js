@@ -68,29 +68,27 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Dynamic header background on scroll
 	window.addEventListener("scroll", () => {
 		const header = document.querySelector("header");
-		if (window.scrollY > 50) {
-			header.style.background = "rgba(0, 0, 0, 0.8)";
-		} else {
-			header.style.background =
-				"linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%)";
-		}
+		header.style.background =
+			window.scrollY > 50
+				? "rgba(0, 0, 0, 0.8)"
+				: "linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%)";
 	});
 
 	// Notification functionality with WebSocket
 	const notificationIcon = document.querySelector(".notification-icon");
 	const notificationPanel = document.getElementById("notification-panel");
 	const blurOverlay = document.getElementById("blur-overlay");
-	const notificationList = document.getElementById("notification-list");
+	const notificationList = document.querySelector(".notification-list");
 	const notificationBadge = document.querySelector(".notification-badge");
 
-	notificationIcon.addEventListener("click", function () {
+	notificationIcon.addEventListener("click", () => {
 		notificationPanel.classList.toggle("active");
 		blurOverlay.classList.toggle("active");
 		notificationBadge.textContent = "";
 		notificationBadge.style.display = "none";
 	});
 
-	blurOverlay.addEventListener("click", function () {
+	blurOverlay.addEventListener("click", () => {
 		notificationPanel.classList.remove("active");
 		blurOverlay.classList.remove("active");
 	});
@@ -112,7 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		// Update notification count
 		let count = parseInt(notificationBadge.textContent) || 0;
-		notificationBadge.textContent = count + 1;
+		count++;
+		notificationBadge.textContent = count;
 		notificationBadge.style.display = "block";
 	});
 });
