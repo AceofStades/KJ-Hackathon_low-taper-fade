@@ -43,12 +43,12 @@ def get_data():
 @socketio.on("connect")
 def handle_connect():
     print("Client connected!")  # ✅ Confirms WebSocket is working
-    emit("notification", {"message": "Connected to notification service!"})
+    emit("new_notification", {"message": "Connected to notification service!"})
 
 # Send notifications dynamically
 def send_notification(message):
     """Emit notification to all connected clients."""
-    socketio.emit("notification", {"message": message}, to="broadcast")
+    socketio.emit("new_notification", {"message": message}, to=None)
 
 # Background notification loop
 def notification_loop():
@@ -57,10 +57,10 @@ def notification_loop():
         "Your favorite movie 'Inception' is now available in 4K!",
         "Limited-time offer: Get 20% off on Premium subscription!",
     ]
-    while True:
-        for msg in messages:
-            socketio.sleep(10)  # ✅ Uses SocketIO's sleep for async compatibility
-            send_notification(msg)
+    for msg in messages:
+        socketio.sleep(10)  # ✅ Uses SocketIO's sleep for async compatibility
+        send_notification(msg)
+    send_notification("Sigma")
 
 if __name__ == "__main__":
     socketio.start_background_task(notification_loop)  # ✅ Runs notification loop in background
