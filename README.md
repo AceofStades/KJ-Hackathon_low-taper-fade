@@ -24,4 +24,9 @@ requirements of churn prediction:**
 **The use cases are:**
 1. **Recall Focused : Used to find as many customers which are at risk of churn, the model will capture most potential churn cases but might also flag customers which are not at risk. It is ideal for proactive customer retention straterfies where retention is more important than reducing churning.**  
 2. **Precision Focused : Used to minimize false positives, it ensures that most of the predicted customer are genuinly at risk of churning. It is suitable for cost effective interventions such as offering discounts or premiums only to true churn risks.**
-    
+
+## **The Workflow of the Project is as shown below:**
+![Workflow](https://github.com/AceofStades/KJ-Hackathon_low-taper-fade/blob/master/Screenshot%202025-02-02%20111908.png?raw=true")
+
+## **The Tech Stack of the Project is as shown below:**
+![Tech Stack](https://github.com/AceofStades/KJ-Hackathon_low-taper-fade/blob/master/Screenshot%202025-02-02%20111941.png?raw=true)
