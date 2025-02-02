@@ -4,22 +4,39 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Customer Churn Dashboard</title>
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>Customer Churn Dashboard</title>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+			<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		   <link rel="stylesheet" href="style1.css">
+		</head>
+		
 		<link
 			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-		/>
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-		<link rel="stylesheet" href="style1.css">
-		
+	<body>
+		<div class="dashboard-container">
+			<h1>Customer Churn Dashboard</h1>
+			<div class="risk-buckets">
+				<div class="bucket" id="lowRisk" onclick="showCategory('low')">
+					Low Risk
+					<span id="lowCount">0</span>
+				</div>
+				<div class="overlay" id="overlay"></div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Churn Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   <link rel="stylesheet" href="style1.css">
-</head>
+				<!-- Centered toast -->
+				<div class="toast" id="discountToast">
+					<p>Apply discount to all high-risk users?</p>
+					<button class="apply-btn" onclick="applyDiscount()">
+						Apply
+					</button>
+					<button class="cancel-btn" onclick="hideToast()">
+						Don't Apply
+					</button>
+				</div>
 
 				<div class="success-toast" id="successToast">
 					<div class="tick-icon"></div>
@@ -58,9 +75,6 @@
 				</table>
 			</div>
 		</div>
-
     <script src="script1.js"></script>
 </body>
-
 </html>
-
