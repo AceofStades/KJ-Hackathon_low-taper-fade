@@ -78,22 +78,44 @@ function createCustomerStatusChart(data) {
 // Function to create Churn Risk by Monthly Charges Chart
 function createChurnRiskIncomeChart(data) {
 	const incomeGroups = {};
+
 	data.forEach((d) => {
-		const range = `$${Math.floor(d.MonthlyCharges / 20) * 20}-${Math.floor(d.MonthlyCharges / 20) * 20 + 19}`;
+		const monthlyCharge = parseFloat(d.MonthlyCharges);
+		const churnProbability = parseFloat(d["Churn Probability"]) || 0; // Ensure valid number
+
+		// Grouping by $20 ranges (0-19, 20-39, 40-59, etc.)
+		const lowerBound = Math.floor(monthlyCharge / 20) * 20;
+		const upperBound = lowerBound + 19;
+		const range = `${lowerBound}-${upperBound}`;
+
 		if (!incomeGroups[range]) {
 			incomeGroups[range] = { churnRisk: 0, count: 0 };
 		}
-		incomeGroups[range].churnRisk += parseFloat(d.ChurnProbability || 0);
+
+		incomeGroups[range].churnRisk += churnProbability;
 		incomeGroups[range].count++;
 	});
 
-	const chartData = Object.keys(incomeGroups).map((key) => ({
-		income: key,
-		churnRisk: (
-			incomeGroups[key].churnRisk / incomeGroups[key].count
-		).toFixed(2),
-	}));
+	// Convert object to sorted array based on numeric lower bound
+	const chartData = Object.keys(incomeGroups)
+		.map((key) => ({
+			income: key,
+			churnRisk:
+				incomeGroups[key].count > 0
+					? (
+							(incomeGroups[key].churnRisk /
+								incomeGroups[key].count) *
+							100
+						).toFixed(2) // Convert to percentage
+					: "0",
+		}))
+		.sort(
+			(a, b) =>
+				parseInt(a.income.split("-")[0]) -
+				parseInt(b.income.split("-")[0]),
+		); // Sort numerically
 
+	// Draw Chart
 	const ctx = document
 		.getElementById("churnRiskIncomeChart")
 		.getContext("2d");
@@ -104,14 +126,14 @@ function createChurnRiskIncomeChart(data) {
 			datasets: [
 				{
 					label: "Churn Risk %",
-					data: chartData.map((d) => d.churnRisk),
+					data: chartData.map((d) => parseFloat(d.churnRisk)), // Convert string to float
 					backgroundColor: "rgba(75, 192, 192, 0.6)",
 				},
 			],
 		},
 		options: {
 			responsive: true,
-			scales: { y: { beginAtZero: true, max: 100 } },
+			scales: { y: { beginAtZero: true, max: 100 } }, // Scale max to 100%
 		},
 	});
 }
