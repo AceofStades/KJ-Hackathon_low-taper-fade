@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Upload CSV File</title>
+		<link rel="stylesheet" href="upload.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h2>Upload a CSV File</h2>
+			<form id="uploadForm" enctype="multipart/form-data">
+				<input type="file" id="fileInput" accept=".csv" required />
+				<button type="submit">Upload</button>
+			</form>
+			<p id="message"></p>
+		</div>
+
+		<script>
+			document
+				.getElementById("uploadForm")
+				.addEventListener("submit", function (event) {
+					event.preventDefault();
+
+					let fileInput = document.getElementById("fileInput");
+					if (!fileInput.files.length) {
+						alert("Please select a CSV file to upload.");
+						return;
+					}
+
+					let formData = new FormData();
+					formData.append("file", fileInput.files[0]);
+
+					fetch("/upload", {
+						method: "POST",
+						body: formData,
+					})
+						.then((response) => response.json())
+						.then((data) => {
+							document.getElementById("message").textContent =
+								data.message;
+							document.getElementById("message").style.color =
+								data.status === "success" ? "green" : "red";
+						})
+						.catch((error) => {
+							document.getElementById("message").textContent =
+								"Error uploading file.";
+							document.getElementById("message").style.color =
+								"red";
+						});
+				});
+		</script>
+	</body>
+</html>
