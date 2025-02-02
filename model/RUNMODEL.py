@@ -42,4 +42,7 @@ print("Predicted churn probability:", predicted_probabilities[0])
 binary_prediction = int(predicted_probabilities[0] >= optimal_threshold)
 print("Predicted churn (binary):", binary_prediction)
 
+churn_prob = pd.Series(predicted_probabilities)
+sample_df['Churn Probability'] = predicted_probabilities
+
 sample_df.to_csv("../modified_data.csv")
