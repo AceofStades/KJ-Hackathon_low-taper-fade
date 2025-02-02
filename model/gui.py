@@ -6,6 +6,7 @@ import os
 import psutil
 from custom_transformers import FeatureEngineer, DropColumnsTransformer
 
+st.title("📊 Business Data Entry")
 data = st.file_uploader("Upload a CSV file", type=["csv"])
 
 def exitapp():

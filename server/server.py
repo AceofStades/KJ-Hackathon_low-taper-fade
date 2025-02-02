@@ -82,13 +82,12 @@ def notification_loop():
     messages = [
         "New episode of 'Stranger Things' is out!",
         "Your favorite movie 'Inception' is now available in 4K!",
-        "Limited-time offer: Get 20% off on Premium subscription!",
     ]
     for msg in messages:
-        socketio.sleep(3)
+        socketio.sleep(5)
         send_notification(msg)
-    socketio.sleep(3)
-    send_notification("Sigma")
+    socketio.sleep(15)
+    send_notification("Limited-time offer: Get 20% off on Premium subscription!")
 
 if __name__ == "__main__":
     socketio.start_background_task(notification_loop)
