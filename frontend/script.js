@@ -117,17 +117,6 @@ function createChurnRiskIncomeChart(data) {
 }
 
 // Function to populate Customer Data Table
-function populateCustomerTable(data) {
-	const tableBody = document.querySelector("#customerTable tbody");
-	tableBody.innerHTML = "";
-	data.forEach((customer) => {
-		const row = tableBody.insertRow();
-		row.insertCell(0).textContent = customer.customerID;
-		row.insertCell(1).textContent = customer.gender;
-		row.insertCell(2).textContent = `${customer.ChurnProbability}%`;
-		row.insertCell(3).textContent = `$${customer.MonthlyCharges}`;
-	});
-}
 
 // Helper function to get colors for chart
 function getColor(status) {

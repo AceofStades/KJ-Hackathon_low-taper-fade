@@ -8,6 +8,42 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+            .blue-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #007BFF; /* Blue color */
+            color: white;
+            padding: 8px 16px; /* Reduced padding */
+            border: none;
+            border-radius: 5px;
+            font-size: 14px; /* Reduced font size */
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hover effect */
+        .blue-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        /* Right arrow icon */
+        .arrow-icon {
+            margin-left: 8px; /* Reduced space between text and icon */
+            width: 14px; /* Reduced icon size */
+            height: 14px; /* Reduced icon size */
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M10 17l5-5-5-5v10z"/></svg>') no-repeat center;
+        }
+
+        .chart-container{
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Adjust as needed */
+}
+
+    </style>
 
 </head>
 <body>
@@ -70,23 +106,11 @@
                 <div id="churnRiskMap"></div>
             </div>
         </div>
+        <button class="blue-button">
+            Click Me
+            <div class="arrow-icon"></div>
+        </button>
 
-        <div class="customer-data">
-            <h3>Customer Data Table</h3>
-            <table id="customerTable">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Gender</th>
-                        <th>Churn Risk %</th>
-                        <th>Spendings</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Table rows will be populated dynamically -->
-                </tbody>
-            </table>
-        </div>
     </div>
 </div>
     <script src="https://d3js.org/d3.v7.min.js"></script>
