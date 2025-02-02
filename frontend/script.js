@@ -133,3 +133,4 @@ window.addEventListener("load", fetchData);
 
 // Fetch and update data every 5 seconds
 setInterval(fetchData, 5000);
+
