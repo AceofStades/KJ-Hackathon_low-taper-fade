@@ -9,17 +9,8 @@
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
 		/>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-		<style>
-			body {
-				font-family: "Poppins", sans-serif;
-				background-color: #1e1e2f;
-				color: white;
-				margin: 0;
-				padding: 20px;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-			}
+		<link rel="stylesheet" href="style1.css">
+		
 
 <head>
     <meta charset="UTF-8">
@@ -68,96 +59,8 @@
 			</div>
 		</div>
 
-		<script>
-			document.addEventListener("DOMContentLoaded", function () {
-				fetchRiskCounts();
-				showCategory("low"); // Default to showing low-risk customers on page load
-			});
-
-<<<<<<< HEAD
     <script src="script1.js"></script>
 </body>
 
 </html>
-=======
-			function fetchRiskCounts() {
-				fetch("/customers/high")
-					.then((response) => response.json())
-					.then((data) => {
-						document.getElementById("highCount").innerText =
-							data.length;
-					});
 
-				fetch("/customers/medium")
-					.then((response) => response.json())
-					.then((data) => {
-						document.getElementById("mediumCount").innerText =
-							data.length;
-					});
-
-				fetch("/customers/low")
-					.then((response) => response.json())
-					.then((data) => {
-						document.getElementById("lowCount").innerText =
-							data.length;
-					});
-			}
-
-			function showCategory(riskLevel) {
-				fetch(`/customers/${riskLevel}`)
-					.then((response) => response.json())
-					.then((data) => {
-						const tableBody =
-							document.getElementById("customerTableBody");
-						tableBody.innerHTML = "";
-
-						data.forEach((customer) => {
-							let row = `<tr onclick="redirectToCustomerDetails('${customer.Name}')">
-                            <td>${customer.Name}</td>
-                            <td>${customer.SubscriptionPlan}</td>
-                            <td>${customer.LastActive}</td>
-                            <td>${customer.ChurnProbability}</td>
-                        </tr>`;
-							tableBody.innerHTML += row;
-						});
-						document.getElementById("tableTitle").innerText =
-							`${riskLevel.charAt(0).toUpperCase() + riskLevel.slice(1)} Risk Customers`;
-					});
-			}
-
-			function redirectToCustomerDetails(name) {
-				window.location.href = `individual_customer.html?name=${encodeURIComponent(name)}`;
-			}
-
-			function showHighRiskCategory() {
-				showCategory("high");
-				document.getElementById("overlay").style.display = "block";
-				document.getElementById("discountToast").style.display = "flex";
-			}
-
-			function applyDiscount() {
-				// Your logic to apply the discount
-				hideToast(); // Hide the original toast
-
-				// Show the success toast
-				const successToast = document.getElementById("successToast");
-				successToast.style.display = "flex";
-
-				// Hide the success toast after 5 seconds
-				setTimeout(() => {
-					successToast.style.animation = "fadeOut 0.5s ease"; // Fade-out animation
-					setTimeout(() => {
-						successToast.style.display = "none";
-						successToast.style.animation = ""; // Reset animation
-					}, 500); // Wait for the animation to complete
-				}, 5000); // 5 seconds delay
-			}
-
-			function hideToast() {
-				document.getElementById("overlay").style.display = "none"; // Hide overlay
-				document.getElementById("discountToast").style.display = "none"; // Hide original toast
-			}
-		</script>
-	</body>
-</html>
->>>>>>> 0cc8069d009c15207097c3c8705632c266cd5b60
