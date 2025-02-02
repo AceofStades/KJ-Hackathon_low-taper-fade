@@ -16,7 +16,7 @@ ALLOWED_EXTENSIONS = {"csv"}
 
 # Load data from CSV
 def load_data():
-    file_path = "../data.csv"
+    file_path = "../modified_data.csv"
     if os.path.exists(file_path):
         df = pd.read_csv(file_path)
         return df.to_dict(orient="records")
