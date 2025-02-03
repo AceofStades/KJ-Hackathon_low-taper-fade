@@ -5,6 +5,9 @@
 **In this project we have developed two models to help streaming services reduce the customer churn by offering insights into their uses and providing predictions if the customer might leave the subscription or not.**
 **Two models have been created for this project, both have been created using the XGBoost algorithm.**
 
+You can read more about the project [here](https://top10sigmas.my.canva.site/by-team-low-taper-fade).  
+
+
 **We chose XGBoost for this project due to several key advantages that align perfectly with the
 requirements of churn prediction:**
 
