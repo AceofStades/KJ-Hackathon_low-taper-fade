@@ -1,6 +1,6 @@
 # **Smart Retention**
 
-**This is the project made for the hackathon Datathon 2025 held in KJSCE on 1-2nd Feb, 2025.**
+**This is the project made us 1st Runners up for the hackathon Datathon 2025 (Core ML) held in KJSCE on 1-2nd Feb, 2025.**
 
 **In this project we have developed two models to help streaming services reduce the customer churn by offering insights into their uses and providing predictions if the customer might leave the subscription or not.**
 **Two models have been created for this project, both have been created using the XGBoost algorithm.**
